@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Login | Lumina Resorts</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="login-container">
+
+    <div class="login-card">
+        <a href="index.html" class="logo" style="display: block; margin-bottom: 2rem;">LUMINA</a>
+        <h2 style="margin-bottom: 1rem;">Guest Portal</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Enter your booking reference or email to access your
+            stay details.</p>
+
+        <form id="login-form">
+            <div class="form-group" style="text-align: left; margin-bottom: 1.5rem;">
+                <label>Email Address</label>
+                <input type="email" placeholder="e.g. guest@lumina.com" required>
+            </div>
+            <div class="form-group" style="text-align: left; margin-bottom: 2rem;">
+                <label>Booking ID (Optional)</label>
+                <input type="text" placeholder="e.g. LUM-77821">
+            </div>
+            <button type="submit" class="btn-primary">Continue</button>
+        </form>
+
+        <div style="margin-top: 2rem;">
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Don't have a booking? <a href="booking.html"
+                    style="color: var(--secondary); text-decoration: none;">Book now</a></p>
+        </div>
+
+        <div style="margin-top: 3rem;">
+            <a href="index.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;"><i
+                    class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

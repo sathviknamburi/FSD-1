@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Hotels | Lumina Resorts</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">LUMINA</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="booking.html">Booking</a></li>
+            <li><a href="tours.html">Tours</a></li>
+        </ul>
+        <a href="login.html" class="btn-login">Guest Login</a>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <section class="container">
+        <div id="user-greeting"></div>
+        <div class="section-title">
+            <h2>Our Global Collection</h2>
+            <p>From Paris to Bali, find your next luxury escape.</p>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="form-group search-input">
+                <input type="text" id="city-search" placeholder="Search by city (e.g. Paris, Tokyo, Dubai)...">
+            </div>
+            <button class="btn-primary" style="width: auto;">Search</button>
+        </div>
+
+        <!-- Hotels Grid -->
+        <div id="hotels-grid" class="grid">
+            <!-- Cards will be injected by main.js -->
+        </div>
+    </section>
+
+    <!-- Detailed Hotel Modal -->
+    <div id="hotel-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modal-body">
+                <!-- Data injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <footer style="padding: 3rem 5%; text-align: center; border-top: 1px solid var(--glass-border);">
+        <p>&copy; 2026 Lumina Resorts. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

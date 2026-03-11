@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Lumina Resorts</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">LUMINA</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="booking.html">Booking</a></li>
+            <li><a href="tours.html">Tours</a></li>
+        </ul>
+        <a href="login.html" class="btn-login">Guest Login</a>
+    </nav>
+
+    <div style="height: 100px;"></div> <!-- Spacer for fixed nav -->
+
+    <section class="container">
+        <div class="section-title">
+            <h2>Our Services</h2>
+            <p>Beyond staying, we provide experiences that enrich your soul.</p>
+        </div>
+
+        <div class="grid">
+            <!-- Food Service -->
+            <div class="card">
+                <img src="assets/food.png" alt="Gourmet Food">
+                <h3>Gastronomy</h3>
+                <p>From breakfast in bed to private beachfront dinners, our culinary team delivers excellence to your
+                    table.</p>
+                <button class="btn-primary" onclick="bookService('Fine Dining')" style="margin-top: 1rem;">Book
+                    Dinner</button>
+            </div>
+
+            <!-- Hospitality Service -->
+            <div class="card">
+                <i class="fas fa-concierge-bell" style="font-size: 3rem; color: var(--secondary); margin: 2rem 0;"></i>
+                <h3>World-Class Hospitality</h3>
+                <p>Our dedicated staff is trained in the art of anticipation, ensuring your needs are met before you
+                    ask.</p>
+                <button class="btn-primary" onclick="bookService('Personal Concierge')"
+                    style="margin-top: 1rem;">Request Valet</button>
+            </div>
+
+            <!-- Tour Planning -->
+            <div class="card">
+                <img src="assets/tour.png" alt="Tour Planning">
+                <h3>Tour Planning</h3>
+                <p>Explore the hidden gems of the coastline with our tailored excursions and private yacht tours.</p>
+                <button class="btn-primary" onclick="location.href='tours.html'" style="margin-top: 1rem;">View
+                    Packages</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" style="text-align: center;">
+        <div class="card" style="max-width: 800px; margin: 0 auto; padding: 4rem;">
+            <h2>Need a Custom Plan?</h2>
+            <p style="margin: 1.5rem 0;">Our travel experts are ready to design a unique itinerary just for you.</p>
+            <button class="btn-primary" style="width: auto; padding: 1rem 3rem;"
+                onclick="bookService('Custom Itinerary')">Contact Concierge</button>
+        </div>
+    </section>
+
+    <footer style="padding: 3rem 5%; text-align: center; border-top: 1px solid var(--glass-border);">
+        <p>&copy; 2026 Lumina Resorts. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
