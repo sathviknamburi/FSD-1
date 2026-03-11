@@ -131,31 +131,6 @@ function renderHotels(filter = '') {
     });
 }
 
-// Render Tours
-function renderTours(filter = '') {
-    const container = document.getElementById('tours-grid');
-    if (!container) return;
-
-    container.innerHTML = '';
-    const filteredTours = toursData.filter(t =>
-        t.city.toLowerCase().includes(filter.toLowerCase()) ||
-        t.package.toLowerCase().includes(filter.toLowerCase())
-    );
-
-    filteredTours.forEach(tour => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-            <img src="assets/tour.png" alt="${tour.city}">
-            <h3 style="color: var(--secondary);">${tour.city} Experience</h3>
-            <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><i class="fas fa-suitcase"></i> ${tour.package}</p>
-            <p style="color: var(--secondary); font-weight: 700; margin-bottom: 1rem;">$${tour.price} / All-Inclusive</p>
-            <button class="btn-primary" onclick="showTourDetails(${tour.id})" style="width:100%;">View Details</button>
-        `;
-        container.appendChild(card);
-    });
-}
-
 // Show Hotel Details
 window.showHotelDetails = function (id) {
     const hotel = hotelsData.find(h => h.id === id);
@@ -185,13 +160,13 @@ window.showHotelDetails = function (id) {
 
                     <h3>Location</h3>
                     <p style="font-size: 0.9rem; margin-bottom: 1rem;">Coordinates: ${hotel.lat}, ${hotel.lng}</p>
-                    <div style="height: 200px; background-size: cover; border-radius: 12px; display:flex; align-items:center; justify-content:center; color: var(--secondary); border: 2px dashed var(--secondary);">
+                    <div style="height: 150px; border-radius: 12px; display:flex; align-items:center; justify-content:center; color: var(--secondary); border: 2px dashed var(--secondary);">
                          <a href="${googleMapsUrl}" target="_blank" style="text-decoration:none; color:inherit; text-align:center;">
                             <i class="fas fa-map-marked-alt" style="font-size: 3rem;"></i>
                             <p style="margin-top:0.5rem;">Open Google Maps</p>
                          </a>
                     </div>
-                    <button class="btn-primary" style="margin-top: 2rem; width:100%;">Book Nightly @ $${hotel.price}</button>
+                    <button class="btn-primary" style="margin-top: 2rem; width:100%;" onclick="openBookingForm('${hotel.name}')">Book Nightly @ $${hotel.price}</button>
                 </div>
             </div>
         </div>
@@ -201,69 +176,101 @@ window.showHotelDetails = function (id) {
     document.body.style.overflow = 'hidden';
 }
 
-// Show Tour Details
-window.showTourDetails = function (id) {
-    const tour = toursData.find(t => t.id === id);
-    const modal = document.getElementById('tour-modal');
-    const modalBody = document.getElementById('tour-modal-body');
-    const mapUrl = `https://www.google.com/maps/@${tour.lat},${tour.lng},13z`;
+// Open Booking Final Form
+window.openBookingForm = function (hotelName) {
+    const modalBody = document.getElementById('modal-body');
+    modalBody.innerHTML = `
+        <div class="modal-body" style="text-align: center;">
+            <h2 style="color: var(--secondary);">Confirm Your Stay: ${hotelName}</h2>
+            <p style="margin-bottom: 2rem;">Please provide your stay details to proceed with reservation.</p>
+            
+            <form id="final-booking-form">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Check-in Date</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Check-out Date</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Arrival Time</label>
+                        <input type="time" required>
+                    </div>
+                    <div class="input-group">
+                        <label>No. of Guests</label>
+                        <input type="number" min="1" max="10" value="2" required>
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Special Requests</label>
+                        <textarea placeholder="e.g. Airport pickup, dietary requirements..."></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; font-size: 1.1rem;">Submit Reservation</button>
+            </form>
+        </div>
+    `;
+
+    document.getElementById('final-booking-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Booking enquiry submitted successfully! Our hospitality team will contact you within 2 hours.');
+        closeModal();
+    });
+}
+
+// Open Contact Form
+window.openContactForm = function () {
+    // We'll use the hotel modal for simplicity
+    const modal = document.getElementById('hotel-modal') || document.getElementById('tour-modal');
+    const modalBody = document.getElementById('modal-body') || document.getElementById('tour-modal-body');
 
     modalBody.innerHTML = `
-        <div class="modal-body">
-            <h2 style="color: var(--secondary); margin-bottom: 0.5rem;">${tour.city} Full Day Tour</h2>
-            <p style="color: var(--text-muted);">${tour.package} Package</p>
+        <div class="modal-body" style="text-align: center;">
+            <h2 style="color: var(--secondary);">Lumina Help Desk</h2>
+            <p style="margin-bottom: 2rem;">How can our concierge assist you today?</p>
             
-            <div class="tour-details-grid" style="margin-top: 2rem;">
-                <div>
-                    <h3>Nearest Points of Interest</h3>
-                    <div class="viewpoint-list">
-                        ${tour.viewpoints.map(vp => `
-                            <div class="viewpoint-item">
-                                <i class="fas ${vp.type === 'Mountain' ? 'fa-mountain' : vp.type === 'Beach' ? 'fa-umbrella-beach' : vp.type === 'Temple' ? 'fa-place-of-worship' : 'fa-landmark'}" style="color: var(--secondary);"></i>
-                                <span>${vp.name} (${vp.type})</span>
-                            </div>
-                        `).join('')}
+            <form id="help-desk-form">
+                <div class="input-grid">
+                    <div class="input-group full-width">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Enter your name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Issue Type</label>
+                        <select required>
+                            <option>Booking Modification</option>
+                            <option>Special Service Request</option>
+                            <option>Feedback/Complaints</option>
+                            <option>Others</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Priority</label>
+                        <select>
+                            <option>Urgent</option>
+                            <option>Normal</option>
+                            <option>Low</option>
+                        </select>
+                    </div>
+                    <div class="input-group full-width">
+                        <label>How can we help?</label>
+                        <textarea placeholder="Please describe your requirement in detail..." required></textarea>
                     </div>
                 </div>
-                <div>
-                    <h3>Luxury Transport</h3>
-                    <div class="car-badge">
-                        <img src="assets/car.png" class="car-img">
-                        <div>
-                            <h4 style="margin:0;">Chauffeur Detail</h4>
-                            <p style="margin:0; font-size: 0.9rem;">Driver: ${tour.driver}</p>
-                            <div style="color: #ecc94b;">
-                                <i class="fas fa-star"></i> ${tour.rating} Rating
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h3>Route Map</h3>
-                    <div style="height: 150px; background: var(--accent); border-radius: 12px; margin-top: 1rem; display:flex; align-items:center; justify-content:center; border: 2px dashed var(--secondary);">
-                         <a href="${mapUrl}" target="_blank" style="text-decoration:none; color:var(--secondary); text-align:center;">
-                            <i class="fas fa-route" style="font-size: 2rem;"></i>
-                            <p>View Route on Maps</p>
-                         </a>
-                    </div>
-                </div>
-            </div>
-            
-            <button class="btn-primary" style="margin-top: 2.5rem; width: 100%; font-size: 1.1rem;">Confirm Package - $${tour.price}</button>
+                <button type="submit" class="btn-primary" style="width: 100%; font-size: 1.1rem;">Send to Help Desk</button>
+            </form>
         </div>
     `;
 
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
-}
 
-window.closeModal = function () {
-    document.getElementById('hotel-modal').style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-
-window.closeTourModal = function () {
-    document.getElementById('tour-modal').style.display = 'none';
-    document.body.style.overflow = 'auto';
+    document.getElementById('help-desk-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you! Your request has been logged. A concierge representative will assist you shortly.');
+        closeModal();
+    });
 }
 
 // User Greeting Logic
@@ -277,30 +284,11 @@ function checkGreeting() {
 
 // Service Booking
 window.bookService = function (serviceName) {
-    alert(`Your ${serviceName} service has been requested. Our concierge will contact you shortly to confirm timings.`);
+    openContactForm();
 }
 
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
     checkGreeting();
     if (document.getElementById('hotels-grid')) renderHotels();
-    if (document.getElementById('tours-grid')) renderTours();
-
-    // Login Form logic
-    const loginForm = document.getElementById('login-form');
-    if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = loginForm.querySelector('input[type="email"]').value;
-            const username = email.split('@')[0];
-            localStorage.setItem('lumina_user', username);
-            window.location.href = 'booking.html';
-        });
-    }
-
-    const searchHotel = document.getElementById('city-search');
-    const searchTour = document.getElementById('tour-search');
-
-    if (searchHotel) searchHotel.addEventListener('input', (e) => renderHotels(e.target.value));
-    if (searchTour) searchTour.addEventListener('input', (e) => renderTours(e.target.value));
 });
