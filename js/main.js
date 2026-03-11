@@ -131,12 +131,39 @@ function renderHotels(filter = '') {
     });
 }
 
+// Render Tours
+function renderTours(filter = '') {
+    const container = document.getElementById('tours-grid');
+    if (!container) return;
+
+    container.innerHTML = '';
+    const filteredTours = toursData.filter(t =>
+        t.city.toLowerCase().includes(filter.toLowerCase()) ||
+        t.package.toLowerCase().includes(filter.toLowerCase())
+    );
+
+    filteredTours.forEach(tour => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <img src="assets/tour.png" alt="${tour.city}">
+            <h3 style="color: var(--secondary);">${tour.city} Experience</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><i class="fas fa-suitcase"></i> ${tour.package}</p>
+            <p style="color: var(--secondary); font-weight: 700; margin-bottom: 1rem;">$${tour.price} / All-Inclusive</p>
+            <button class="btn-primary" onclick="showTourDetails(${tour.id})" style="width:100%;">View Details</button>
+        `;
+        container.appendChild(card);
+    });
+}
+
 // Show Hotel Details
 window.showHotelDetails = function (id) {
     const hotel = hotelsData.find(h => h.id === id);
-    const modal = document.getElementById('hotel-modal');
+    const modal = document.getElementById('hotel-modal') || document.getElementById('service-modal');
     const modalBody = document.getElementById('modal-body');
     const googleMapsUrl = `https://www.google.com/maps/@${hotel.lat},${hotel.lng},15z`;
+
+    if (!modal || !modalBody) return;
 
     modalBody.innerHTML = `
         <div style="padding: 2rem;">
@@ -176,9 +203,68 @@ window.showHotelDetails = function (id) {
     document.body.style.overflow = 'hidden';
 }
 
+// Show Tour Details
+window.showTourDetails = function (id) {
+    const tour = toursData.find(t => t.id === id);
+    const modal = document.getElementById('tour-modal');
+    const modalBody = document.getElementById('tour-modal-body');
+    const mapUrl = `https://www.google.com/maps/@${tour.lat},${tour.lng},13z`;
+
+    if (!modal || !modalBody) return;
+
+    modalBody.innerHTML = `
+        <div class="modal-body">
+            <h2 style="color: var(--secondary); margin-bottom: 0.5rem;">${tour.city} Full Day Tour</h2>
+            <p style="color: var(--text-muted);">${tour.package} Package</p>
+            
+            <div class="tour-details-grid" style="margin-top: 2rem;">
+                <div>
+                    <h3>Nearest Points of Interest</h3>
+                    <div class="viewpoint-list">
+                        ${tour.viewpoints.map(vp => `
+                            <div class="viewpoint-item">
+                                <i class="fas ${vp.type === 'Mountain' ? 'fa-mountain' : vp.type === 'Beach' ? 'fa-umbrella-beach' : vp.type === 'Temple' ? 'fa-place-of-worship' : 'fa-landmark'}" style="color: var(--secondary);"></i>
+                                <span>${vp.name} (${vp.type})</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <div>
+                    <h3>Luxury Transport</h3>
+                    <div class="car-badge">
+                        <img src="assets/car.png" class="car-img">
+                        <div>
+                            <h4 style="margin:0;">Chauffeur Detail</h4>
+                            <p style="margin:0; font-size: 0.9rem;">Driver: ${tour.driver}</p>
+                            <div style="color: #ecc94b;">
+                                <i class="fas fa-star"></i> ${tour.rating} Rating
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3>Route Map</h3>
+                    <div style="height: 150px; background: var(--accent); border-radius: 12px; margin-top: 1rem; display:flex; align-items:center; justify-content:center; border: 2px dashed var(--secondary);">
+                         <a href="${mapUrl}" target="_blank" style="text-decoration:none; color:var(--secondary); text-align:center;">
+                            <i class="fas fa-route" style="font-size: 2rem;"></i>
+                            <p>View Route on Maps</p>
+                         </a>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-primary" style="margin-top: 2.5rem; width: 100%; font-size: 1.1rem;" onclick="openContactForm()">Confirm Package - $${tour.price}</button>
+        </div>
+    `;
+
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
 // Open Booking Final Form
 window.openBookingForm = function (hotelName) {
-    const modalBody = document.getElementById('modal-body');
+    const modalBody = document.getElementById('modal-body') || document.getElementById('tour-modal-body');
+    if (!modalBody) return;
+
     modalBody.innerHTML = `
         <div class="modal-body" style="text-align: center;">
             <h2 style="color: var(--secondary);">Confirm Your Stay: ${hotelName}</h2>
@@ -221,9 +307,10 @@ window.openBookingForm = function (hotelName) {
 
 // Open Contact Form
 window.openContactForm = function () {
-    // We'll use the hotel modal for simplicity
-    const modal = document.getElementById('hotel-modal') || document.getElementById('tour-modal');
+    const modal = document.getElementById('service-modal') || document.getElementById('hotel-modal') || document.getElementById('tour-modal');
     const modalBody = document.getElementById('modal-body') || document.getElementById('tour-modal-body');
+
+    if (!modal || !modalBody) return;
 
     modalBody.innerHTML = `
         <div class="modal-body" style="text-align: center;">
@@ -273,6 +360,14 @@ window.openContactForm = function () {
     });
 }
 
+window.closeModal = function () {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(m => m.style.display = 'none');
+    document.body.style.overflow = 'auto';
+}
+
+window.closeTourModal = window.closeModal;
+
 // User Greeting Logic
 function checkGreeting() {
     const user = localStorage.getItem('lumina_user');
@@ -291,4 +386,23 @@ window.bookService = function (serviceName) {
 document.addEventListener('DOMContentLoaded', () => {
     checkGreeting();
     if (document.getElementById('hotels-grid')) renderHotels();
+    if (document.getElementById('tours-grid')) renderTours();
+
+    const searchHotel = document.getElementById('city-search');
+    const searchTour = document.getElementById('tour-search');
+
+    if (searchHotel) searchHotel.addEventListener('input', (e) => renderHotels(e.target.value));
+    if (searchTour) searchTour.addEventListener('input', (e) => renderTours(e.target.value));
+
+    // Login Form logic
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = loginForm.querySelector('input[type="email"]').value;
+            const username = email.split('@')[0];
+            localStorage.setItem('lumina_user', username);
+            window.location.href = 'booking.html';
+        });
+    }
 });
