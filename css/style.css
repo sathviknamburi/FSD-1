@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
+html {
+    scroll-behavior: smooth;
+}
+
 :root {
-    --primary: #f0f4f8;
-    /* Light White/Blue */
+    --primary: #ffffff;
     --secondary: #0056b3;
-    /* Deep Blue */
-    --accent: #e1e8f0;
+    --accent: #f0f4f8;
     --text: #1a1a2e;
     --text-muted: #4a5568;
     --glass: rgba(255, 255, 255, 0.9);
@@ -13,6 +15,8 @@
     --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+
 
 * {
     margin: 0;
@@ -28,18 +32,13 @@ body {
     overflow-x: hidden;
 }
 
-/* Scrollbar */
+/* Hide Scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
+    display: none;
 }
 
-::-webkit-scrollbar-track {
-    background: var(--primary);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--secondary);
-    border-radius: 10px;
+html {
+    scrollbar-width: none; /* For Firefox */
 }
 
 /* Navigation */
@@ -47,23 +46,48 @@ nav {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 1.5rem 5%;
+    padding: 1rem 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--glass);
     backdrop-filter: blur(10px);
-    transition: var(--transition);
     border-bottom: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
 }
+
+/* Home Page Hero Navigation */
+body.home-page nav {
+    background: transparent;
+    padding: 2rem 5%;
+    box-shadow: none;
+    border-bottom: none;
+    backdrop-filter: none;
+}
+
+body.home-page nav.scrolled {
+    padding: 1rem 5%;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+}
+
+
 
 .logo {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--secondary);
+    color: white;
     letter-spacing: 2px;
     text-decoration: none;
+    transition: var(--transition);
+}
+
+nav.scrolled .logo {
+    color: var(--secondary);
 }
 
 .nav-links {
@@ -74,10 +98,14 @@ nav {
 
 .nav-links a {
     text-decoration: none;
-    color: var(--text);
-    font-weight: 400;
+    color: white;
+    font-weight: 500;
     transition: var(--transition);
     position: relative;
+}
+
+nav.scrolled .nav-links a {
+    color: var(--text);
 }
 
 .nav-links a::after {
@@ -117,7 +145,7 @@ nav {
 /* Hero Section */
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('../assets/hotel.png');
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../assets/hero_bg_new.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -130,12 +158,23 @@ nav {
 }
 
 .hero h1 {
-    font-size: 5rem;
+    font-size: 5.5rem;
+    line-height: 1.1;
     margin-bottom: 1.5rem;
-    color: var(--secondary);
-    text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
-    animation: fadeInUp 1s ease;
+    color: white;
+    text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 1.2s ease;
 }
+
+.hero p {
+    font-size: 1.4rem;
+    color: white;
+    max-width: 800px;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+}
+
+
 
 /* Utility Classes */
 .container {
@@ -169,9 +208,11 @@ nav {
 }
 
 .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 86, 179, 0.15);
 }
+
+
 
 .card img {
     width: 100%;
@@ -179,7 +220,13 @@ nav {
     object-fit: cover;
     border-radius: 12px;
     margin-bottom: 1rem;
+    transition: transform 0.5s ease;
 }
+
+.card:hover img {
+    transform: scale(1.05);
+}
+
 
 /* Filter Bar */
 .filter-bar {
@@ -203,7 +250,16 @@ select {
     color: var(--text);
     outline: none;
     width: 100%;
+    transition: var(--transition);
 }
+
+input:focus,
+select:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 10px rgba(0, 86, 179, 0.1);
+}
+
+
 
 /* Modal Styles */
 .modal {
@@ -262,7 +318,35 @@ select {
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    z-index: -1;
+}
+
+.btn-primary:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 8px 20px rgba(0, 86, 179, 0.3);
+    transform: translateY(-2px);
+}
+
 
 /* Form Helper Classes */
 .input-grid {
@@ -381,3 +465,117 @@ textarea {
     text-align: center;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
 }
+
+/* Review & Experience Page */
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2.5rem;
+}
+
+.review-card {
+    background: white;
+    border-radius: 30px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.profile-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--secondary);
+}
+
+.profile-info h4 {
+    font-size: 1.2rem;
+    color: var(--text);
+}
+
+.profile-info span {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.rating {
+    color: #ffc107;
+    /* Star Gold */
+    margin: 1rem 0;
+    font-size: 1.1rem;
+}
+
+.review-text {
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+.badge-gender {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    display: inline-block;
+}
+
+.male { background: rgba(0, 86, 179, 0.1); color: var(--secondary); }
+.female { background: rgba(255, 105, 180, 0.1); color: #ff69b4; }
+
+.rating-form-card {
+    max-width: 600px;
+    margin: 4rem auto;
+    padding: 3rem;
+}
+
+/* Reveal Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Delay classes for grid items */
+.reveal:nth-child(1) { transition-delay: 0.1s; }
+.reveal:nth-child(2) { transition-delay: 0.2s; }
+.reveal:nth-child(3) { transition-delay: 0.3s; }
+.reveal:nth-child(4) { transition-delay: 0.4s; }
+
+
+/* Hero Content Animation */
+
+.hero h1, .hero p, .hero div {
+    animation: fadeInUp 1.2s both;
+}
+
+.hero p { animation-delay: 0.2s; }
+.hero div { animation-delay: 0.4s; }
+
+/* Sticky Header on scroll */
+nav.scrolled {
+    padding: 0.8rem 5%;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+

@@ -87,18 +87,15 @@ const toursData = [
 // Navigation Scroll Effect
 window.addEventListener('scroll', () => {
     const nav = document.querySelector('nav');
-    if (nav) {
+    if (nav && document.body.classList.contains('home-page')) {
         if (window.scrollY > 50) {
-            nav.style.padding = '0.8rem 5%';
-            nav.style.background = 'white';
-            nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            nav.classList.add('scrolled');
         } else {
-            nav.style.padding = '1.5rem 5%';
-            nav.style.background = 'rgba(255, 255, 255, 0.9)';
-            nav.style.boxShadow = 'none';
+            nav.classList.remove('scrolled');
         }
     }
 });
+
 
 // Render Hotels
 function renderHotels(filter = '') {
@@ -382,17 +379,39 @@ window.bookService = function (serviceName) {
     openContactForm();
 }
 
+// Reveal Animation on Scroll
+function initScrollReveal() {
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => observer.observe(el));
+}
+
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
     checkGreeting();
     if (document.getElementById('hotels-grid')) renderHotels();
     if (document.getElementById('tours-grid')) renderTours();
 
+    initScrollReveal();
+
     const searchHotel = document.getElementById('city-search');
     const searchTour = document.getElementById('tour-search');
 
-    if (searchHotel) searchHotel.addEventListener('input', (e) => renderHotels(e.target.value));
-    if (searchTour) searchTour.addEventListener('input', (e) => renderTours(e.target.value));
+    if (searchHotel) searchHotel.addEventListener('input', (e) => {
+        renderHotels(e.target.value);
+        initScrollReveal(); // Re-init for new elements
+    });
+    if (searchTour) searchTour.addEventListener('input', (e) => {
+        renderTours(e.target.value);
+        initScrollReveal(); // Re-init for new elements
+    });
 
     // Login Form logic
     const loginForm = document.getElementById('login-form');
@@ -406,3 +425,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+

@@ -11,64 +11,126 @@
 
 <body>
     <nav>
+
+
         <a href="index.html" class="logo">LUMINA</a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="booking.html">Booking</a></li>
             <li><a href="tours.html">Tours</a></li>
+            <li><a href="experience.html">Experience</a></li>
         </ul>
         <a href="login.html" class="btn-login">Guest Login</a>
     </nav>
 
     <div style="height: 100px;"></div> <!-- Spacer for fixed nav -->
 
-    <section class="container">
+    <section class="container reveal">
         <div class="section-title">
-            <h2>Our Services</h2>
-            <p>Beyond staying, we provide experiences that enrich your soul.</p>
+            <h2>The Gourmet Kitchen</h2>
+            <p>Our world-renowned chefs bring you the finest delicacies from around the globe.</p>
         </div>
 
         <div class="grid">
-            <!-- Food Service -->
-            <div class="card">
-                <img src="assets/food.png" alt="Gourmet Food">
-                <h3>Gastronomy</h3>
-                <p>From breakfast in bed to private beachfront dinners, our culinary team delivers excellence to your
-                    table.</p>
-                <button class="btn-primary" onclick="bookService('Fine Dining')" style="margin-top: 1rem;">Book
-                    Dinner</button>
+            <div class="card reveal">
+                <img src="assets/dish1.png" alt="Signature Dish 1">
+                <h3>Truffle Infused Risotto</h3>
+                <p>Creamy Italian rice paired with hand-picked winter truffles and aged parmesan.</p>
+                <button class="btn-primary" onclick="bookService('Chef Selection')" style="margin-top: 1rem;">Order Now</button>
             </div>
-
-            <!-- Hospitality Service -->
-            <div class="card">
-                <i class="fas fa-concierge-bell" style="font-size: 3rem; color: var(--secondary); margin: 2rem 0;"></i>
-                <h3>World-Class Hospitality</h3>
-                <p>Our dedicated staff is trained in the art of anticipation, ensuring your needs are met before you
-                    ask.</p>
-                <button class="btn-primary" onclick="bookService('Personal Concierge')"
-                    style="margin-top: 1rem;">Request Valet</button>
+            <div class="card reveal">
+                <img src="assets/dish2.png" alt="Signature Dish 2">
+                <h3>Pan-Seared Atlantic Salmon</h3>
+                <p>Freshly caught salmon served with asparagus and a delicate lemon butter sauce.</p>
+                <button class="btn-primary" onclick="bookService('Chef Selection')" style="margin-top: 1rem;">Order Now</button>
             </div>
-
-            <!-- Tour Planning -->
-            <div class="card">
-                <img src="assets/tour.png" alt="Tour Planning">
-                <h3>Tour Planning</h3>
-                <p>Explore the hidden gems of the coastline with our tailored excursions and private yacht tours.</p>
-                <button class="btn-primary" onclick="location.href='tours.html'" style="margin-top: 1rem;">View
-                    Packages</button>
+            <div class="card reveal">
+                <img src="assets/dish3.png" alt="Signature Dish 3">
+                <h3>Velvet Chocolate Lava</h3>
+                <p>Decadent dark chocolate fondant with a molten center, served with gold leaf berries.</p>
+                <button class="btn-primary" onclick="bookService('Chef Selection')" style="margin-top: 1rem;">Order Now</button>
             </div>
         </div>
     </section>
 
-    <section class="container" style="text-align: center;">
-        <div class="card" style="max-width: 800px; margin: 0 auto; padding: 4rem;">
-            <h2>Need a Custom Plan?</h2>
-            <p style="margin: 1.5rem 0;">Our travel experts are ready to design a unique itinerary just for you.</p>
-            <button class="btn-primary" style="width: auto; padding: 1rem 3rem;"
-                onclick="bookService('Custom Itinerary')">Contact Concierge</button>
+    <section class="container reveal" style="background: #f8fafc;">
+
+        <div class="section-title">
+            <h2>Physical Excellence</h2>
+            <p>State-of-the-art facilities designed for training, recovery, and peak performance.</p>
+        </div>
+
+        <div class="grid">
+            <div class="card reveal">
+                <img src="assets/gym.png" alt="Royal Gym">
+                <h3>Elite Fitness Center</h3>
+                <p>24/7 access to world-class equipment and personal training sessions.</p>
+                <button class="btn-primary" onclick="bookService('Gym Training')" style="margin-top: 1rem;">Book Session</button>
+            </div>
+            <div class="card reveal">
+                <i class="fas fa-tennis-ball" style="font-size: 3rem; color: var(--secondary); margin: 2rem 0; text-align: center; display: block;"></i>
+                <h3>Sports Arena</h3>
+                <p>Professional tennis courts, squash, and multi-purpose sports fields.</p>
+                <button class="btn-primary" onclick="bookService('Sports')" style="margin-top: 1rem;">View Arena</button>
+            </div>
         </div>
     </section>
+
+    <section class="container reveal">
+        <div class="section-title">
+            <h2>Lumina Wellness & Beauty</h2>
+            <p>Indulge in transformative treatments that rejuvenate the body and soul.</p>
+        </div>
+
+        <div class="grid">
+            <div class="card reveal">
+                <img src="assets/spa.png" alt="Luxury Spa">
+                <h3>Serenity Spa</h3>
+                <p>Ancient healing rituals and modern massage therapies in a tranquil setting.</p>
+                <button class="btn-primary" onclick="bookService('Spa')" style="margin-top: 1rem;">Book Treatment</button>
+            </div>
+            <div class="card reveal">
+                <img src="assets/salon.png" alt="Luxury Salon">
+                <h3>The Grand Salon</h3>
+                <p>Premium hair styling, manicures, and aesthetic treatments by master stylists.</p>
+                <button class="btn-primary" onclick="bookService('Salon')" style="margin-top: 1rem;">Book Stylist</button>
+            </div>
+            <div class="card reveal">
+                <i class="fas fa-hand-holding-heart" style="font-size: 3rem; color: var(--secondary); margin: 2rem 0; text-align: center; display: block;"></i>
+                <h3>Holistic Massage</h3>
+                <p>Deep tissue, aromatherapy, and hot stone massages for complete relaxation.</p>
+                <button class="btn-primary" onclick="bookService('Massage')" style="margin-top: 1rem;">Book Massage</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="container reveal" style="text-align: center; background: linear-gradient(135deg, var(--secondary), #003366); color: white; border-radius: 40px; margin: 5rem 5%;">
+
+        <div style="padding: 5rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; color: white;">The Art of Giving</h2>
+            <p style="margin-bottom: 2.5rem; opacity: 0.9;">Surprise your loved ones with a LUMINA Gift Experience. From spa retreats to gourmet dinners, give the gift of unforgettable memories.</p>
+            <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                <div class="card reveal" style="background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.2); width: 250px;">
+                    <i class="fas fa-gift" style="font-size: 2.5rem; margin-bottom: 1rem;"></i>
+                    <h4 style="color: white;">Stay Voucher</h4>
+                    <p style="color: white; opacity: 0.8; font-size: 0.9rem;">From $500</p>
+                </div>
+                <div class="card reveal" style="background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.2); width: 250px;">
+                    <i class="fas fa-spa" style="font-size: 2.5rem; margin-bottom: 1rem;"></i>
+                    <h4 style="color: white;">Beauty Voucher</h4>
+                    <p style="color: white; opacity: 0.8; font-size: 0.9rem;">From $150</p>
+                </div>
+                <div class="card reveal" style="background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.2); width: 250px;">
+                    <i class="fas fa-utensils" style="font-size: 2.5rem; margin-bottom: 1rem;"></i>
+                    <h4 style="color: white;">Dining Voucher</h4>
+                    <p style="color: white; opacity: 0.8; font-size: 0.9rem;">From $100</p>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="openContactForm()" style="background: white; color: var(--secondary); margin-top: 3rem;">Browse Vouchers</button>
+        </div>
+    </section>
+
 
     <!-- Generic Modal for Services -->
     <div id="service-modal" class="modal">
