@@ -80,14 +80,15 @@ body.home-page nav.scrolled {
 .logo {
     font-size: 1.8rem;
     font-weight: 700;
-    color: white;
+    color: var(--secondary);
     letter-spacing: 2px;
     text-decoration: none;
     transition: var(--transition);
 }
 
-nav.scrolled .logo {
-    color: var(--secondary);
+/* White logo on home hero */
+body.home-page nav:not(.scrolled) .logo {
+    color: white;
 }
 
 .nav-links {
@@ -98,14 +99,15 @@ nav.scrolled .logo {
 
 .nav-links a {
     text-decoration: none;
-    color: white;
+    color: var(--text);
     font-weight: 500;
     transition: var(--transition);
     position: relative;
 }
 
-nav.scrolled .nav-links a {
-    color: var(--text);
+/* White links on home hero */
+body.home-page nav:not(.scrolled) .nav-links a {
+    color: white;
 }
 
 .nav-links a::after {
