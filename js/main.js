@@ -403,6 +403,37 @@ document.addEventListener('DOMContentLoaded', () => {
     checkGreeting();
     if (document.getElementById('hotels-grid')) renderHotels();
     if (document.getElementById('tours-grid')) renderTours();
+    const loginForm = document.getElementById('login-form');
+    const loginCard = document.querySelector('.login-card');
+    const loginStatus = document.getElementById('login-status');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const emailInput = document.getElementById('login-email');
+            if (!emailInput.value || !emailInput.checkValidity()) {
+                loginStatus.textContent = 'Please enter a valid email to continue.';
+                loginStatus.classList.add('error');
+                loginStatus.classList.remove('success');
+                loginCard.classList.add('error');
+                loginCard.classList.remove('success');
+                setTimeout(() => loginCard.classList.remove('error'), 600);
+                return;
+            }
+
+            loginStatus.textContent = 'Welcome back! Redirecting to your dashboard...';
+            loginStatus.classList.remove('error');
+            loginStatus.classList.add('success');
+            loginCard.classList.add('success');
+            loginCard.classList.remove('error');
+
+            setTimeout(() => {
+                loginStatus.textContent = 'Login successful. Enjoy your stay.';
+                // Placeholder: actual route depending on app structure
+            }, 900);
+        });
+    }
+
 
     initScrollReveal();
 
@@ -418,16 +449,5 @@ document.addEventListener('DOMContentLoaded', () => {
         initScrollReveal(); // Re-init for new elements
     });
 
-    // Login Form logic
-    const loginForm = document.getElementById('login-form');
-    if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = loginForm.querySelector('input[type="email"]').value;
-            const username = email.split('@')[0];
-            localStorage.setItem('lumina_user', username);
-            window.location.href = 'booking.html';
-        });
-    }
 });
 
