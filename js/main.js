@@ -1,6 +1,6 @@
 const hotelsData = [
-    { id: 1, name: "Lumina Paris", city: "Paris", price: 450, owner: "Jean-Pierre", email: "paris@lumina.com", lat: 48.8566, lng: 2.3522, guests: "1-2", stay: "3-14 nights" },
-    { id: 2, name: "Lumina Dubai", city: "Dubai", price: 650, owner: "Ahmed Al-Farsi", email: "dubai@lumina.com", lat: 25.2048, lng: 55.2708, guests: "1-4", stay: "1-30 nights" },
+    { id: 1, name: "Lumina Paris", city: "Paris", price: 450, owner: "Jean-Pierre", email: "paris@lumina.com", lat: 48.8566, lng: 2.3522, guests: "1-2", stay: "3-14 nights", image: "assets/hotel.png" },
+    { id: 2, name: "Lumina Dubai", city: "Dubai", price: 650, owner: "Ahmed Al-Farsi", email: "dubai@lumina.com", lat: 25.2048, lng: 55.2708, guests: "1-4", stay: "1-30 nights", image: "assets/resort_gallery.png" },
     { id: 3, name: "Lumina Tokyo", city: "Tokyo", price: 550, owner: "Yuki Tanaka", email: "tokyo@lumina.com", lat: 35.6762, lng: 139.6503, guests: "1-2", stay: "2-10 nights" },
     { id: 4, name: "Lumina New York", city: "New York", price: 750, owner: "Sarah Jenkins", email: "ny@lumina.com", lat: 40.7128, lng: -74.0060, guests: "1-4", stay: "1-7 nights" },
     { id: 5, name: "Lumina London", city: "London", price: 480, owner: "William Rose", email: "london@lumina.com", lat: 51.5074, lng: -0.1278, guests: "1-2", stay: "1-14 nights" },
@@ -18,8 +18,10 @@ const hotelsData = [
     { id: 17, name: "Lumina Berlin", city: "Berlin", price: 290, owner: "Stefan Muller", email: "berlin@lumina.com", lat: 52.5200, lng: 13.4050, guests: "1-2", stay: "1-7 nights" },
     { id: 18, name: "Lumina Mumbai", city: "Mumbai", price: 310, owner: "Rajesh Sharma", email: "mumbai@lumina.com", lat: 19.0760, lng: 72.8777, guests: "1-4", stay: "1-14 nights" },
     { id: 19, name: "Lumina Rio", city: "Rio de Janeiro", price: 400, owner: "Thiago Silva", email: "rio@lumina.com", lat: -22.9068, lng: -43.1729, guests: "1-4", stay: "3-14 nights" },
-    { id: 20, name: "Lumina Moscow", city: "Moscow", price: 410, owner: "Ivan Petrov", email: "moscow@lumina.com", lat: 55.7558, lng: 37.6173, guests: "1-2", stay: "1-14 nights" }
+    { id: 20, name: "Lumina Moscow", city: "Moscow", price: 410, owner: "Ivan Petrov", email: "moscow@lumina.com", lat: 55.7558, lng: 37.6173, guests: "1-2", stay: "1-14 nights", image: "assets/room.png" }
 ];
+
+const hotelImagePool = ["assets/hotel.png", "assets/room.png", "assets/resort_gallery.png"];
 
 const toursData = [
     {
@@ -109,10 +111,11 @@ function renderHotels(filter = '') {
     );
 
     filteredHotels.forEach(hotel => {
+        const imageUrl = hotel.image || hotelImagePool[(hotel.id - 1) % hotelImagePool.length];
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
-            <img src="assets/hotels_grid.png" alt="${hotel.name}">
+            <img src="${imageUrl}" alt="${hotel.name}">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
                 <h3 style="font-size: 1.1rem; color: var(--secondary);">${hotel.name}</h3>
                 <span style="color: var(--secondary); font-weight: 700;">$${hotel.price}</span>
@@ -162,21 +165,23 @@ window.showHotelDetails = function (id) {
 
     if (!modal || !modalBody) return;
 
+    const detailImageUrl = hotel.image || hotelImagePool[(hotel.id - 1) % hotelImagePool.length];
+
     modalBody.innerHTML = `
         <div style="padding: 2rem;">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                 <div>
-                     <img src="assets/hotels_grid.png" style="width: 100%; border-radius: 12px; margin-bottom: 1rem;">
-                     <div style="background: var(--accent); padding: 1.5rem; border-radius: 15px;">
+                    <img src="${detailImageUrl}" style="width: 100%; border-radius: 12px; margin-bottom: 1rem;">
+                    <div style="background: var(--accent); padding: 1.5rem; border-radius: 15px;">
                         <h4>Contact Owner</h4>
                         <p><i class="fas fa-user"></i> ${hotel.owner}</p>
                         <p><i class="fas fa-envelope"></i> ${hotel.email}</p>
-                     </div>
+                    </div>
                 </div>
                 <div>
                     <h2 style="color: var(--secondary);">${hotel.name}</h2>
                     <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Located in the beautiful city of ${hotel.city}. Discover luxury redefined.</p>
-                    
+
                     <div style="margin-bottom: 1.5rem; display:flex; gap:2rem;">
                         <span><strong>Capacity:</strong> ${hotel.guests} Guests</span>
                         <span><strong>Duration:</strong> ${hotel.stay}</span>
@@ -185,10 +190,10 @@ window.showHotelDetails = function (id) {
                     <h3>Location</h3>
                     <p style="font-size: 0.9rem; margin-bottom: 1rem;">Coordinates: ${hotel.lat}, ${hotel.lng}</p>
                     <div style="height: 150px; border-radius: 12px; display:flex; align-items:center; justify-content:center; color: var(--secondary); border: 2px dashed var(--secondary);">
-                         <a href="${googleMapsUrl}" target="_blank" style="text-decoration:none; color:inherit; text-align:center;">
+                        <a href="${googleMapsUrl}" target="_blank" style="text-decoration:none; color:inherit; text-align:center;">
                             <i class="fas fa-map-marked-alt" style="font-size: 3rem;"></i>
                             <p style="margin-top:0.5rem;">Open Google Maps</p>
-                         </a>
+                        </a>
                     </div>
                     <button class="btn-primary" style="margin-top: 2rem; width:100%;" onclick="openBookingForm('${hotel.name}')">Book Nightly @ $${hotel.price}</button>
                 </div>
