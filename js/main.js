@@ -400,6 +400,7 @@ function initScrollReveal() {
 
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
+    initScrollReveal();
     checkGreeting();
     if (document.getElementById('hotels-grid')) renderHotels();
     if (document.getElementById('tours-grid')) renderTours();
