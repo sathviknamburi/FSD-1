@@ -14,7 +14,7 @@
 
 
         <a href="index.html" class="logo">LUMINA</a>
-        <ul class="nav-links">
+        <ul class="nav-links" id="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="booking.html">Booking</a></li>
@@ -22,6 +22,9 @@
             <li><a href="experience.html">Experience</a></li>
         </ul>
         <a href="login.html" class="btn-login">Guest Login</a>
+        <div class="hamburger" id="hamburger" onclick="this.classList.toggle('open'); document.getElementById('nav-links').classList.toggle('open');">
+            <span></span><span></span><span></span>
+        </div>
     </nav>
 
     <div style="height: 100px;"></div>
@@ -41,7 +44,7 @@
     </section>
 
     <section class="container reveal" style="background: rgba(255, 255, 255, 0.05); border-radius: 40px; margin: 0 5%;">
-        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 4rem; padding: 4rem; align-items: center;">
+        <div class="grid tips-grid" style="grid-template-columns: 1fr 1fr; gap: 4rem; padding: 4rem; align-items: center;">
             <div>
                 <h2 style="font-size: 2rem; color: var(--secondary); margin-bottom: 2rem;">Essential Traveler Tips</h2>
                 <div style="margin-bottom: 1.5rem;">

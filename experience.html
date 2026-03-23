@@ -14,7 +14,7 @@
 
 
         <a href="index.html" class="logo">LUMINA</a>
-        <ul class="nav-links">
+        <ul class="nav-links" id="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="booking.html">Booking</a></li>
@@ -22,6 +22,9 @@
             <li><a href="experience.html">Experience</a></li>
         </ul>
         <a href="login.html" class="btn-login">Guest Login</a>
+        <div class="hamburger" id="hamburger" onclick="this.classList.toggle('open'); document.getElementById('nav-links').classList.toggle('open');">
+            <span></span><span></span><span></span>
+        </div>
     </nav>
 
     <div style="height: 100px;"></div>
@@ -117,7 +120,7 @@
             <h2>Lumina Moments</h2>
             <p>A glimpse into the extraordinary experiences captured by our community.</p>
         </div>
-        <div class="grid" style="grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+        <div class="grid gallery-grid" style="grid-template-columns: repeat(4, 1fr); gap: 1rem;">
             <div class="reveal" style="height: 250px; overflow: hidden; border-radius: 20px;">
                 <img src="assets/resort_gallery.png" alt="Gallery 1" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
             </div>
