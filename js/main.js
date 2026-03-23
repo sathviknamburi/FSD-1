@@ -435,19 +435,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    initScrollReveal();
-
     const searchHotel = document.getElementById('city-search');
     const searchTour = document.getElementById('tour-search');
 
-    if (searchHotel) searchHotel.addEventListener('input', (e) => {
-        renderHotels(e.target.value);
-        initScrollReveal(); // Re-init for new elements
-    });
-    if (searchTour) searchTour.addEventListener('input', (e) => {
-        renderTours(e.target.value);
-        initScrollReveal(); // Re-init for new elements
-    });
-
+    if (searchHotel) {
+        searchHotel.addEventListener('input', (e) => {
+            renderHotels(e.target.value);
+        });
+    }
+    if (searchTour) {
+        searchTour.addEventListener('input', (e) => {
+            renderTours(e.target.value);
+        });
+    }
 });
-

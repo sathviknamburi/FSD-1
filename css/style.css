@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
 html {
     scroll-behavior: smooth;
@@ -454,138 +454,19 @@ textarea {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, rgba(0, 86, 179, 0.45), rgba(0, 86, 179, 0.05)), url('../assets/resort_gallery.png') center/cover no-repeat;
-    background-attachment: fixed;
-    position: relative;
-    overflow: hidden;
-}
-
-.login-container::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(3px);
-    z-index: 0;
+    background: radial-gradient(circle at top right, #e1e8f0, #f0f4f8);
 }
 
 .login-card {
     width: 100%;
     max-width: 450px;
     padding: 4rem 3rem;
-    background: rgba(255, 255, 255, 0.96);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: white;
+    border: 1px solid var(--glass-border);
     border-radius: 40px;
     text-align: center;
-    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25);
-    z-index: 1;
-    transform: translateY(40px);
-    opacity: 0;
-    animation: loginCardFadeIn 0.8s ease forwards;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
 }
-
-@keyframes loginCardFadeIn {
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.login-card h2,
-.login-card p,
-.login-card input,
-.login-card .input-wrap,
-.login-card .btn-primary {
-    animation: fadeInUp 0.7s ease forwards;
-}
-
-.login-card h2 { animation-delay: 0.2s; }
-.login-card p { animation-delay: 0.3s; }
-.login-card .input-wrap { animation-delay: 0.35s; }
-.login-card .btn-primary { animation-delay: 0.5s; }
-
-.input-wrap {
-    position: relative;
-    margin-bottom: 1.5rem;
-}
-
-.input-wrap input {
-    width: 100%;
-    padding: 1rem 1.2rem;
-    border: 1px solid #cbd5e0;
-    border-radius: 20px;
-    outline: none;
-    background: rgba(255,255,255,0.85);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    font-size: 1rem;
-}
-
-.input-wrap input:focus {
-    border-color: var(--secondary);
-    box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.12);
-}
-
-.input-wrap label {
-    position: absolute;
-    top: 50%;
-    left: 1rem;
-    transform: translateY(-50%);
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    pointer-events: none;
-    transition: transform 0.25s ease, font-size 0.25s ease, color 0.25s ease;
-}
-
-.input-wrap input:focus + label,
-.input-wrap input:not(:placeholder-shown) + label {
-    transform: translateY(-165%) scale(0.85);
-    color: var(--secondary);
-}
-
-.focus-border {
-    position: absolute;
-    bottom: 0.2rem;
-    left: 1rem;
-    width: 0;
-    height: 2px;
-    background: var(--secondary);
-    transition: width 0.35s ease;
-}
-
-.input-wrap input:focus ~ .focus-border {
-    width: calc(100% - 2rem);
-}
-
-.login-status {
-    margin-top: 0.8rem;
-    min-height: 24px;
-    color: #2d6a4f;
-    font-weight: 600;
-}
-
-.login-status.error {
-    color: #d32f2f;
-}
-
-.login-card.success {
-    border: 1px solid #32a852;
-    box-shadow: 0 30px 70px rgba(50, 168, 82, 0.2);
-}
-
-.login-card.error {
-    animation: shake 0.35s ease;
-    border: 1px solid #d32f2f;
-    box-shadow: 0 30px 70px rgba(211, 47, 47, 0.2);
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-8px); }
-    40%, 80% { transform: translateX(8px); }
-}
-
-.login-card .btn-primary:hover { transform: translateY(-3px) scale(1.02); }
-
 
 /* Review & Experience Page */
 .review-grid {
@@ -699,5 +580,4 @@ nav.scrolled {
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
-
 
