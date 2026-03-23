@@ -509,6 +509,24 @@ body.home-page nav:not(.scrolled) .hamburger span {
     .hero h1 { font-size: 2.4rem; }
     .hero p  { font-size: 1rem; }
 
+    .hero {
+        background-attachment: scroll;
+    }
+
+    .hero div {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .hero .btn-primary {
+        display: inline-block !important;
+        width: auto !important;
+        padding: 1rem 2.5rem !important;
+        position: relative;
+        z-index: 2;
+    }
+
     .container { padding: 3rem 5%; }
     .section-title h2 { font-size: 1.8rem; }
 
