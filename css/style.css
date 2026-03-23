@@ -438,13 +438,16 @@ textarea {
     }
 }
 
-/* Hamburger Menu */
+/* ============================================
+   HAMBURGER (hidden on desktop)
+   ============================================ */
 .hamburger {
     display: none;
     flex-direction: column;
     gap: 5px;
     cursor: pointer;
     z-index: 1100;
+    padding: 4px;
 }
 
 .hamburger span {
@@ -460,31 +463,33 @@ body.home-page nav:not(.scrolled) .hamburger span {
     background: white;
 }
 
-/* Tablet */
-@media (max-width: 1024px) {
-    .hero h1 { font-size: 3.5rem; }
-
-    .grid {
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    }
-
-    .input-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .full-width {
-        grid-column: span 1;
-    }
-
-    .tour-details-grid {
-        grid-template-columns: 1fr;
-    }
+/* ============================================
+   ABOVE 800px — LAPTOP / DESKTOP
+   ============================================ */
+@media (min-width: 801px) {
+    .hamburger { display: none; }
+    .nav-links { display: flex; }
+    .btn-login { display: inline-block; }
 }
 
-/* Mobile */
-@media (max-width: 768px) {
+/* ============================================
+   260px – 800px — PHONE
+   ============================================ */
+@media (min-width: 260px) and (max-width: 800px) {
 
+    /* Nav */
     .hamburger { display: flex; }
+    .btn-login { display: none; }
+
+    nav {
+        padding: 0.9rem 5%;
+    }
+
+    body.home-page nav {
+        padding: 0.9rem 5%;
+    }
+
+    .logo { font-size: 1.5rem; }
 
     .nav-links {
         display: none;
@@ -493,91 +498,230 @@ body.home-page nav:not(.scrolled) .hamburger span {
         left: 0;
         width: 100%;
         height: 100vh;
-        background: rgba(255, 255, 255, 0.97);
+        background: rgba(255, 255, 255, 0.98);
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 2.5rem;
+        gap: 2rem;
         z-index: 1050;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .nav-links.open { display: flex; }
     .nav-links a { color: var(--text) !important; }
-    .btn-login { display: none; }
 
-    .hero h1 { font-size: 2.4rem; }
-    .hero p  { font-size: 1rem; }
-
+    /* Hero */
     .hero {
         background-attachment: scroll;
+        padding: 0 6%;
+        height: 100svh;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+
+    .hero p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero h1, .hero p {
+        animation: fadeInUp 1s both;
     }
 
     .hero div {
-        animation: none;
-        opacity: 1;
-        transform: none;
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
     }
 
     .hero .btn-primary {
         display: inline-block !important;
         width: auto !important;
-        padding: 1rem 2.5rem !important;
+        padding: 0.85rem 2.2rem !important;
+        font-size: 0.95rem;
         position: relative;
-        z-index: 2;
+        z-index: 5;
     }
 
-    .container { padding: 3rem 5%; }
-    .section-title h2 { font-size: 1.8rem; }
+    /* Layout */
+    .container { padding: 2.5rem 5%; }
 
+    .section-title { margin-bottom: 2rem; }
+    .section-title h2 { font-size: 1.6rem; }
+    .section-title p  { font-size: 0.9rem; }
+
+    /* All grids → single column */
     .grid,
-    .review-grid {
-        grid-template-columns: 1fr;
+    .review-grid,
+    .gallery-grid,
+    .tips-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.2rem;
+        padding: 0 !important;
     }
 
-    .tour-details-grid { grid-template-columns: 1fr; }
+    .tour-details-grid { grid-template-columns: 1fr; gap: 1.5rem; }
 
+    /* Cards */
+    .card { padding: 1.2rem; }
+    .card img { height: 160px; }
+
+    /* Filter bar */
     .filter-bar {
         flex-direction: column;
         gap: 0.8rem;
+        max-width: 100%;
     }
 
-    .modal { padding: 0; }
+    /* Forms */
+    .input-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    .full-width { grid-column: span 1; }
 
+    /* Modal */
+    .modal { padding: 0; }
     .modal-content {
         margin: 0;
         border-radius: 0;
         min-height: 100vh;
+        width: 100%;
     }
+    .modal-body { padding: 1.2rem; }
+    .close-modal { top: 0.8rem; right: 1rem; }
 
-    .modal-body { padding: 1.5rem; }
-
+    /* Login */
+    .login-container { padding: 1.5rem; }
     .login-card {
-        padding: 2.5rem 1.5rem;
-        border-radius: 24px;
+        padding: 2rem 1.2rem;
+        border-radius: 20px;
     }
 
+    /* Rating form */
     .rating-form-card {
-        padding: 1.5rem;
-        margin: 2rem auto;
+        padding: 1.2rem;
+        margin: 1.5rem auto;
     }
 
-    .input-grid {
-        grid-template-columns: 1fr;
+    /* Subscribe row */
+    .subscribe-row,
+    div[style*="display: flex"][style*="gap: 1rem"] {
+        flex-direction: column !important;
+        align-items: stretch !important;
     }
 
-    .full-width {
-        grid-column: span 1;
+    /* Conscious luxury section padding */
+    div[style*="border-radius: 40px"][style*="padding: 4rem"] {
+        padding: 1.5rem !important;
+        border-radius: 20px !important;
     }
+
+    /* Unrivaled comfort padding-left */
+    div[style*="padding-left: 2rem"] {
+        padding-left: 0 !important;
+        margin-top: 1rem;
+    }
+
+    /* Review card */
+    .review-card { padding: 1.5rem; }
+
+    /* Car badge */
+    .car-badge { flex-direction: column; align-items: flex-start; }
+    .car-img { width: 100%; height: 120px; }
 }
 
-/* Small Mobile */
-@media (max-width: 480px) {
-    .hero h1 { font-size: 1.9rem; }
-    .hero p  { font-size: 0.9rem; }
-    nav { padding: 1rem 5%; }
-    .logo { font-size: 1.4rem; }
-    .section-title h2 { font-size: 1.5rem; }
+/* ============================================
+   BELOW 260px — VERY SMALL SCREENS
+   ============================================ */
+@media (max-width: 259px) {
+
+    nav { padding: 0.7rem 4%; }
+    .logo { font-size: 1.1rem; letter-spacing: 1px; }
+    .hamburger span { width: 20px; }
+
+    .hero {
+        background-attachment: scroll;
+        padding: 0 4%;
+        height: 100svh;
+    }
+
+    .hero h1 {
+        font-size: 1.4rem;
+        line-height: 1.2;
+        margin-bottom: 0.8rem;
+    }
+
+    .hero p {
+        font-size: 0.78rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero div {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .hero .btn-primary {
+        display: inline-block !important;
+        width: auto !important;
+        padding: 0.65rem 1.4rem !important;
+        font-size: 0.8rem;
+        position: relative;
+        z-index: 5;
+    }
+
+    .container { padding: 1.5rem 4%; }
+    .section-title h2 { font-size: 1.2rem; }
+    .section-title p  { font-size: 0.78rem; }
+
+    .grid,
+    .review-grid,
+    .gallery-grid,
+    .tips-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+        padding: 0 !important;
+    }
+
+    .card { padding: 1rem; border-radius: 14px; }
+    .card img { height: 120px; }
+
+    .btn-primary { padding: 0.6rem 1.2rem; font-size: 0.8rem; }
+
+    .filter-bar { flex-direction: column; gap: 0.6rem; }
+
+    .input-grid { grid-template-columns: 1fr; gap: 0; }
+    .full-width { grid-column: span 1; }
+
+    .modal { padding: 0; }
+    .modal-content { margin: 0; border-radius: 0; min-height: 100vh; }
+    .modal-body { padding: 0.8rem; }
+
+    .login-container { padding: 1rem; }
+    .login-card { padding: 1.5rem 1rem; border-radius: 16px; }
+
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100vh;
+        background: rgba(255,255,255,0.98);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        z-index: 1050;
+        font-size: 1rem;
+    }
+    .nav-links.open { display: flex; }
+    .btn-login { display: none; }
+    .hamburger { display: flex; }
 }
 
 /* Login Page Specific */
